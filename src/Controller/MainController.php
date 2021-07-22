@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\AccessKey;
 use App\Service\Profile;
 use App\Service\Method;
 
@@ -30,10 +31,14 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/{method_name}", name="method")
+     * @Route("/{access_key}/{method_name}", name="method")
      */
-    public function method($method_name, Method $method)
+    public function method($method_name, AccessKey $accessKey, Method $method)
     {
+        if ($accessKey->isNotAllowed()) {
+            return $this->json(['error' => 'Access not allowed']);
+        }
+
         if (!method_exists($method, $method_name)) {
             return $this->json(['error' => 'Method not found']);
         }
