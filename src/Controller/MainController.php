@@ -30,10 +30,14 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/{method_name}", name="method")
+     * @Route("/{profile_name}/{access_key}/{method_name}", name="method")
      */
-    public function method($method_name, Method $method)
+    public function method($method_name, Profile $profile, Method $method)
     {
+        if ($profile->isNotDetected()) {
+            return $this->json(['error' => 'Access not allowed']);
+        }
+
         if (!method_exists($method, $method_name)) {
             return $this->json(['error' => 'Method not found']);
         }

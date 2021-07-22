@@ -2,6 +2,6 @@
 
 return [
 
-    'foo' => 'bar',
+    'access_key' => '1234567890',
 
 ];
