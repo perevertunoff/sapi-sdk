@@ -82,7 +82,7 @@ class DbRequest
                 }
 
                 if (isset($temp_substring) && $temp_substring) {
-                    $string = (isset($string) && $string ? "$string, $temp_substring" : $string = $temp_substring;);
+                    $string = (isset($string) && $string ? "$string, $temp_substring" : $string = $temp_substring);
                 }
             }
             if (isset($string) && $string) return "ORDER BY $string";
