@@ -157,7 +157,7 @@ class DbRequest
         if (!$where) $where = $this->requestStack->getCurrentRequest()->get('where');
 
         if (is_string($table) && $table && is_array($where) && $where) {
-            return $this->connection->delete($table, $data, $where);
+            return $this->connection->delete($table, $where);
         }
 
         return false;

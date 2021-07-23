@@ -2,27 +2,32 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\RequestStack;
-
 class Method
 {
+    private $dbRequest;
+
+    public function __construct(DbRequest $dbRequest)
+    {
+        $this->dbRequest = $dbRequest;
+    }
+
     public function hiWorld()
     {
         return 'Hi World!';
     }
 
-    public function select(DbRequest $dbRequest)
+    public function select()
     {
-        if ($result = $dbRequest->select()) {
+        if ($result = $this->dbRequest->select()) {
             return $result;
         } else {
             return ['error' => 'Incorrect params'];
         }
     }
 
-    public function insert(DbRequest $dbRequest)
+    public function insert()
     {
-        if ($result = $dbRequest->insert()) {
+        if ($result = $this->dbRequest->insert()) {
             return ['result' => 'Success'];
         } else {
             return ['error' => 'Incorrect params'];
@@ -31,7 +36,7 @@ class Method
 
     public function update()
     {
-        if ($result = $dbRequest->update()) {
+        if ($result = $this->dbRequest->update()) {
             return ['result' => 'Success'];
         } else {
             return ['error' => 'Incorrect params'];
@@ -40,7 +45,7 @@ class Method
 
     public function delete()
     {
-        if ($result = $dbRequest->delete()) {
+        if ($result = $this->dbRequest->delete()) {
             return ['result' => 'Success'];
         } else {
             return ['error' => 'Incorrect params'];
